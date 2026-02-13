@@ -1,0 +1,181 @@
+Index html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Wants To Be Daksh's Valentine?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(255,0,100,0.3);
+}
+
+h1 {
+    font-weight: 600;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin: 12px 0;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #ff4b7d;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #ff1f5a;
+}
+
+#startBtn {
+    font-size: 18px;
+    padding: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.bigYes {
+    font-size: 20px;
+    padding: 18px;
+    background: #ff0066;
+}
+
+.confetti {
+    font-size: 50px;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="app">
+    <h1>Welcome Diya ❤️</h1>
+    <p>Today you are playing for the grand prize...</p>
+    <h2>Daksh's Heart 💘</h2>
+    <button id="startBtn" onclick="startQuiz()">Start The Quiz</button>
+</div>
+
+<script>
+
+const questions = [
+{
+question: "When did we first meet?",
+options: ["Option A", "Option B", "Option C", "Option D"],
+correct: 0,
+message: "Correct ❤️ Looks like someone remembers our story."},
+
+{
+question: "Who said 'I love you' first? 😏",
+options: ["Me", "You", "It just happened", "Both together"],
+correct: 1,
+message: "Hehe… best moment ever ❤️"},
+
+{
+question: "What is my favorite thing about you?",
+options: ["Your smile", "Your voice", "Your anger 😄", "Everything"],
+correct: 3,
+message: "Of course… EVERYTHING."},
+
+{
+question: "Who is more lucky in this relationship?",
+options: ["Me", "You", "Both", "Destiny"],
+correct: 0,
+message: "Obviously… I got YOU."}
+];
+
+let current = 0;
+
+function startQuiz(){
+    showQuestion();
+}
+
+function showQuestion(){
+    const q = questions[current];
+    let html = `<h2>${q.question}</h2>`;
+
+    q.options.forEach((opt, index)=>{
+        html += `<button onclick="checkAnswer(${index})">${opt}</button>`;
+    });
+
+    document.getElementById("app").innerHTML = html;
+}
+
+function checkAnswer(index){
+    const q = questions[current];
+
+    if(index === q.correct){
+        document.getElementById("app").innerHTML = `<h2>${q.message}</h2>`;
+        current++;
+
+        setTimeout(()=>{
+            if(current < questions.length){
+                showQuestion();
+            } else {
+                finalQuestion();
+            }
+        },1500);
+    }
+    else{
+        document.getElementById("app").innerHTML = `<h2>Wrong answer 😜 but I still love you.</h2>`;
+        setTimeout(showQuestion,1500);
+    }
+}
+
+function finalQuestion(){
+    document.getElementById("app").innerHTML = `
+    <h2>For the final question... worth my entire heart ❤️</h2>
+    <h1>Diya, Will You Be My Valentine?</h1>
+    <button class="bigYes" onclick="celebrate()">YES ❤️</button>
+    <button onclick="celebrate()">YES (I already am 😘)</button>
+    `;
+}
+
+function celebrate(){
+    document.getElementById("app").innerHTML = `
+    <div class="confetti">❤️ 🎉 ❤️ 🎉 ❤️</div>
+    <h1>You just won Daksh forever ❤️</h1>
+    <h2>Happy Valentine's Day, Diya!</h2>
+    <p>I love you more than words can ever explain.</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
